@@ -1,0 +1,9 @@
+/* Estilos para la alerta del login error */
+.errorMensaje{
+    background-color: red;
+    width: 300px;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
