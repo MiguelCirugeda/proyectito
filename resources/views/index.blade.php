@@ -15,6 +15,7 @@
 
 <body class="cuerpo">
     <center>
+        {{-- Esto es una prueba de gitHub --}}
         <div class="container py-4 ">
             <h1 class="display-6">Pagina de login</h1>
             <form class=" w-100" action="{{ route('login') }}" method="POST">
