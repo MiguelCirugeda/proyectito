@@ -15,6 +15,7 @@
   }
  
 </style>
+{{-- Plantilla principal --}}
 <div class="container">
   <nav class="navbar navbar-expand-lg {{ $usuario && $usuario->esTecnico == 1 ? 'bg-red' : 'bg-body-tertiary' }}">
         <div class="container-fluid">
