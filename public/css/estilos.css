@@ -16,7 +16,7 @@ body.dark-mode {
     background: rgb(7, 7, 7);
 }
 .cuerpo {
-    background-image: url("/images/NO_BORRAR.webp");
+    background-image: url("/images/no_borrar.webp");
     background-size: cover; /* Ajusta la imagen al tamaño de la ventana */
     background-repeat: no-repeat; /* Evita que la imagen se duplique */
     background-position: center; /* Centra la imagen en el contenedor */
