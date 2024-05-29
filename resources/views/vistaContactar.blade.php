@@ -20,6 +20,7 @@
 
 
         </x-plantilla>
+        <div class="row mx-auto">
         <p class="display-3">Contactar</p>
 
         <form class="w-100" action="{{ route('insertarCorreo') }}" method="POST">
@@ -98,6 +99,7 @@
                 Correo enviado
             </div>
         </div>
+    </div>
     </div>
     </div>
 </body>

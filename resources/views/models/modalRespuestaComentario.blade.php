@@ -1,6 +1,4 @@
 <div class="container">
-{{-- Modal de responder a un comentario --}}
-
 <form action="{{ route('responderComentario', ['id' => $incidencia->id]) }}" method="POST">
     @csrf
     <input type="hidden" name="incidencia_id" value="{{ $incidencia->id }}">
@@ -10,7 +8,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="comentarioRespuestaLabel">Comentario de: </h5>
+                    <h5 class="modal-title" id="comentarioRespuestaLabel">Comentario </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

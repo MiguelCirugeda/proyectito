@@ -21,7 +21,9 @@
 
 
         </x-plantilla>
-
+        <br>
+        <div class="row mx-auto">
+        <p class="display-6">Eliminar una incidencia</p>
         <table class="table table-hover caption-top">
             <thead>
                 <tr>
@@ -60,7 +62,7 @@
 
 
 
-
+        </div>
     </div>
 </body>
 

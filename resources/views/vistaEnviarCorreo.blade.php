@@ -137,7 +137,7 @@
             </section>
         </div>
     </div>
-    {{-- Alerta tipo Toast que mostramos cuando se termina de copiar un codigo --}}
+    {{-- Alerta tipo Toast que mostramos cuando enviamos correctamente un correo--}}
     <div class="toast" id="alertConfirmEnvio"
         style="position: fixed; top: 60px; left: 50%; transform: translate(-50%, 0); background-color: #3fe304; opacity: 0.9;"
         data-delay="2000" data-autohide="true">
@@ -150,7 +150,7 @@
     </div>
     <script>
         /* Con json pasamos datos de php al archivo javascript
-        Creamos variable global de Javascripy y la llamamos 'correoEnviado, despues le asignamos el valor de la sesion
+        Creamos variable global de Javascript y la llamamos 'correoEnviado, despues le asignamos el valor de la sesion
         Como existe correoEnviado porque al registrar un correo se devuelve con esa sesion' */
         window.correoEnviado = @json(session('correoEnviado', false));
 

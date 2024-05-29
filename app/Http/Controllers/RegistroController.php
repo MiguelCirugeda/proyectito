@@ -18,7 +18,7 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
         $messages = [
-            'required' => 'El campo :attribute es obligatorio.',
+            'required' => 'La contraseña es obligatoria.',
             'min' => 'Las contraseñas deben tener al menos :min caracteres.',
             'same' => 'Las contraseñas no coinciden.',
             'codigo' => 'El codigo no es valido',
@@ -35,6 +35,7 @@ class RegistroController extends Controller
             'codigo' => 'required|exists:codigos,codigo',
         ], $messages);
 
+
         // Buscar el código en la tabla 'codigos'
         $codigo = DB::table('codigos')->where('codigo', $request->codigo)->first();
         if (!$codigo) {
@@ -48,12 +49,13 @@ class RegistroController extends Controller
             $registro->nombre = $request->nombre;
             $registro->apellido = $request->apellido;
             $registro->categoria_usuario = $request->categoria_usuario;
-            $registro->tipo_tecnico = $request->tipo_tecnico; // Añade esta línea
+            $registro->tipo_tecnico = $request->tipo_tecnico; 
             $registro->password = Hash::make($request->contrasena1);
             $registro->esTecnico = $request->input('esTecnico', false);
 
             $registro->save();
 
+            /* Una vez registrado actualizamos es estado del codigo para que no este disponible */
             // Actualizar el estado y el usuario_id en la tabla 'codigos'
             DB::table('codigos')
                 ->where('codigo', $request->codigo)

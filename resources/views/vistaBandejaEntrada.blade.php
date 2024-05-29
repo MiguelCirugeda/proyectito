@@ -33,36 +33,7 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            {{-- <div class="bg-red col-auto col-md-2.5 col-lg-3 min-vh-100">
-                <div class="p-2">
-                    <a class="d-flex text-decoration-none mt-1 align-items-center {{ $usuario && $usuario->esTecnico == 1 ? 'text-white' : '' }}"
-                        href="">
-                        <span class="fs-4-none d-sm-inline">Correo de {{ $usuario->nombre }}</span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mt-4">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="{{ route('vistaBandeja', ['id' => $usuario->id]) }}"
-                                class="nav-link">
-                                <i class="fs-5 fa fa-guage bg-white"></i><span class="fs-4 d-sm-inline">Bandeja de
-                                    Entrada</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="{{ route('vistaEnviarCorreo', ['id' => $usuario->id]) }}"
-                                class="nav-link">
-                                <i class="fs-5 fa fa-guage"></i><span class="fs-4 d-sm-inline">Enviar Correo</span>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="{{ route('principal') }}" class="nav-link">
-                                <i class="fs-5 fa fa-guage"></i><span class="fs-4 d-sm-inline">Volver a principal</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div> --}}
-
-
+ 
             <x-plantillaCorreo>
 
             </x-plantillaCorreo>

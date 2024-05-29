@@ -15,14 +15,14 @@
 
 <body class="cuerpo">
     <center>
-        {{-- Esto es una prueba de gitHub --}}
+        
         <div class="container py-4 ">
-            <h1 class="display-6">Pagina de login</h1>
+            <h1 class="display-6">App Incidencias Informáticas</h1>
             <form class=" w-100" action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="row justify-content-center align-items-center">
                     <div class="input-group mb-3 w-50">
-                        <!-- Importante modificar el width y el height porque por defecto es pequeño y no se vera -->
+                        
                         <svg class="input-group-text  btn-success" style="background-color:rgba(23, 180, 49, 0.833)" xmlns="http://www.w3.org/2000/svg" width="50"
                             height="50" fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
                             <path
@@ -35,7 +35,7 @@
                 </div>
                 <div class="row justify-content-center align-items-center">
                     <div class="input-group mb-3 w-50">
-                        <!-- Importante modificar el width y el height porque por defecto es pequeño y no se vera -->
+                        
                         <svg class="input-group-text" style="background-color:rgba(23, 180, 49, 0.833)" xmlns="http://www.w3.org/2000/svg" width="50" height="50"
                             fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
                             <path

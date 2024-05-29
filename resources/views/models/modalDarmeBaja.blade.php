@@ -19,7 +19,6 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                        <!-- Botón de envío del formulario -->
                         <button type="submit" class="btn btn-success">Confirmar baja</button>
                     </div>
                 </div>

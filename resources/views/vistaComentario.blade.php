@@ -55,16 +55,17 @@
                                     style="color: yellow; text-shadow: 1px 0 black;">{{ $incidencia->prioridad }}</span>
                             @endif <br>
                             <span class="font-weight-bold">Categoría:</span>
-                                @if ($incidencia->categoria)
-                                    {{ $incidencia->categoria->tipo}}
-                                @else
-                                    (No hay categoría asociada)
-                                @endif <br>
-                            <span class="font-weight-bold">Subido por:</span> @if($incidencia->usuarioSubio)
-                            {{ $incidencia->usuarioSubio->nombre }}
-                        @else
-                            No hay nombre asociado
-                        @endif
+                            @if ($incidencia->categoria)
+                                {{ $incidencia->categoria->tipo }}
+                            @else
+                                (No hay categoría asociada)
+                            @endif <br>
+                            <span class="font-weight-bold">Subido por:</span>
+                            @if ($incidencia->usuarioSubio)
+                                {{ $incidencia->usuarioSubio->nombre }}
+                            @else
+                                No hay nombre asociado
+                            @endif
                         </p>
                         <form action="{{ route('vistaComentario') }}" method="POST">
                             @csrf
@@ -79,10 +80,11 @@
                 </div>
             </div>
 
-            <!-- Sección de comentarios -->
+            <!-- Zona de los comentarios -->
             <div class="col-md-6">
                 @foreach ($incidencia->comentarios as $comentario)
-                    @if ($comentario->comentario_padre_id == null) <!-- Solo mostramos los comentarios que no son respuestas -->
+                    @if ($comentario->comentario_padre_id == null)
+                        <!-- Solo mostramos los comentarios que no son respuestas -->
                         @include('models/modalRespuestaComentario', ['comentario' => $comentario])
                         <div class="col-12 py-4">
                             <div class="card shadow bg-white rounded">
@@ -92,13 +94,14 @@
                                 <div class="card-body">
                                     <blockquote class="blockquote mb-0">
                                         <p>{{ $comentario->texto_comentario }}</p>
-                                        <footer class="blockquote-footer">Comentado por @if($incidencia->usuarioSubio)
-                                            {{ $incidencia->usuarioSubio->nombre }}
-                                        @else
-                                            (No hay nombre asociado)
-                                        @endif
+                                        <footer class="blockquote-footer">Comentado por
+                                            @if ($comentario->usuario)
+                                                {{ $comentario->usuario->nombre }}
+                                            @else
+                                                (No hay nombre asociado)
+                                            @endif
                                         </footer>
-                                        <p class="h6">Fecha de subida {{$comentario->fecha_subida}}</p>
+                                        <p class="h6">Fecha de subida {{ $comentario->fecha_subida }}</p>
                                         <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal"
                                             data-bs-target="#comentarioRespuesta{{ $comentario->id }}">Responder
                                             comentario</button>
@@ -108,15 +111,15 @@
                                         <blockquote class="blockquote mb-0">
                                             <p>{{ $respuesta->texto_comentario }}</p>
                                             <footer class="blockquote-footer">Respuesta de
-                                                @if($incidencia->usuarioSubio)
-                                                {{ $incidencia->usuarioSubio->nombre }}
-                                            @else
-                                                (No hay nombre asociado)
-                                            @endif
+                                                @if ($incidencia->usuarioSubio)
+                                                    {{ $respuesta->usuario->nombre }}
+                                                @else
+                                                    (No hay nombre asociado)
+                                                @endif
                                             </footer>
-                                            
+
                                         </blockquote>
-                                        <p class="h6">Fecha de subida {{$comentario->fecha_subida}}</p>
+                                        <p class="h6">Fecha de subida {{ $comentario->fecha_subida }}</p>
                                     @endforeach
                                 </div>
                             </div>
@@ -124,9 +127,9 @@
                     @endif
                 @endforeach
             </div>
-            
-            
-            
+
+
+
         </div>
     </div>
 </body>

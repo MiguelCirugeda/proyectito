@@ -34,7 +34,7 @@
                   <textarea class="form-control" id="contenido" name="contenido" rows="5"></textarea>
                 </div>
                 
-                <!-- Añade aquí más campos si es necesario -->
+                
                 <input type="hidden" name="estado" value="no leido">
                 <input type="hidden" id="usuario" name="usuario" value="{{ $correo->id_usuario_remitente }}">
               

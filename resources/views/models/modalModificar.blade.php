@@ -40,7 +40,7 @@
               </select>
             </div>
 
-            <!-- Añade aquí más campos si es necesario -->
+            
             <input type="hidden" id="incidenciaId">
           
         </div>

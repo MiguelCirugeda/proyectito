@@ -15,6 +15,7 @@ class LoginController extends Controller
     public function mostrarLogin()
     {
         return view('index');
+        
     }
 
     /* La usamos tambien para visualizar todas las incidencias en pantalla */

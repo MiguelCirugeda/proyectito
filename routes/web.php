@@ -39,7 +39,6 @@ Route::get('/index', [LoginController::class, 'mostrarLogin'])->name('despuesLog
 //Primera vista, pagina principal
 Route::get('/principal/{id}', [LoginController::class, 'vistaPrincipal'])->middleware('auth')->name('principal');
 
-
 Route::get('/formRegistro', [RegistroController::class, 'vista'])->name('formRegistro');//Vista del formulario de registro
 Route::post('/registro', [RegistroController::class, 'store'])->name('registro.store');//Ruta que lleva a la funcion de registro
 

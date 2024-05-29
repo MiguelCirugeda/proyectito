@@ -13,7 +13,7 @@
                 <label for="usuario" class="form-label">Usuario</label>
                 <select class="form-select" id="usuario" name="usuario">
                   <option value="">Ninguno</option>
-                  <!-- Suponiendo que tienes una variable $usuarios que contiene los usuarios -->
+                  
                   @foreach ($usuarios as $usuario)
                     <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
                   @endforeach

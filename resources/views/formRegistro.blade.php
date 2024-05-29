@@ -17,7 +17,7 @@
 
 <body class="cuerpo">
     <div class="container py-4">
-        <h1 class="display-6 row justify-content-center">Pagina de registro</h1>
+        <h1 class="display-6 row justify-content-center">Registrarse</h1>
 
         <form class="w-100" action="{{ route('registro.store') }}" method="POST">
             @csrf
@@ -120,6 +120,7 @@
             
 
         </form>
+        <br>
         {{-- Codigos de errores --}}
         <div class="row justify-content-center align-items-center">
             @error('codigo')
@@ -142,17 +143,7 @@
                 </div>
             @enderror
         </div>
-        {{-- @if ($errors->any())
-        <div class="alert alert-danger alert-dismissible">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-            <button class="btn-close" data-bs-dismiss="alert" aria-label="Close alert"></button>
-        </div>
-    @endif --}}
-
+       
     </div>
 </body>
 

@@ -10,11 +10,12 @@ class ComentarioController extends Controller
 {
     public function vistaComentario(Request $request)
     {
-        // Obtener la incidencia que nos interesa
+        // Obtener la incidencia que hemos seleccionado en la vista anterior
+        /* Esa incidencia tiene un creador, por eso buscamos por su identificador 'usuarioSubio' == al id de la incidencia */
         $incidencia = Incidencia::with('usuarioSubio')->find($request->incidencia_id);
        
 
-        // Pasar la incidencia a la vista
+        
         return view('vistaComentario', [
             'incidencia' => $incidencia,
             'comentarios' => $incidencia->comentarios,
@@ -23,7 +24,7 @@ class ComentarioController extends Controller
 
     public function insertarComentario(Request $request, $id)
     {
-        // Validar los datos del formulario
+        
         $request->validate([
             'texto_comentario' => 'required',
         ]);
@@ -34,17 +35,18 @@ class ComentarioController extends Controller
         $comentario->id_usuario = auth()->user()->id;
         $comentario->id_incidencia = $id;
 
-        // Guardar el comentario en la base de datos
+        
         $comentario->save();
 
         return redirect()->route('mostrarComentario', ['id' => $id]);
     }
     public function mostrarComentario($id)
     {
-        // Obtén la incidencia y sus comentarios
+        // Obtenemos la incidencia y sus comentarios
         $incidencia = Incidencia::with('comentarios')->find($id);
+        
 
-        // Muestra la vista 'vistaComentario.blade.php' con los datos de la incidencia
+        
         return view('vistaComentario', ['incidencia' => $incidencia]);
     }
 

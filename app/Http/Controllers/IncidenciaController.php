@@ -56,7 +56,7 @@ class IncidenciaController extends Controller
             'estado' => 'required',
             'prioridad' => 'required',
             'categoria' => 'required',
-            'formFile' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048', // Hacemos opcional la subida del archivo
+            'formFile' => 'image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048', 
         ]);
 
         $incidencia = new Incidencia;
@@ -78,12 +78,13 @@ class IncidenciaController extends Controller
         $categoria->id_incidencia = $incidencia->id;
         $categoria->save();
 
-        $ruta_imagen = 'images/imgPorDefecto.jpg'; // Ruta de la imagen por defecto
+        $ruta_imagen = 'images/imgPorDefecto.jpg'; 
 
         if ($request->hasFile('formFile')) {
             $imagen = $request->file('formFile');
             $nombre_imagen = time() . '.' . $imagen->getClientOriginalExtension();
             //creamos un nombre unico compuesto por la hora actual y la extension original del archivo
+            /* Se guarda la extension original con getClientOriginalExtension() */
             $destino = public_path('/images');
             $imagen->move($destino, $nombre_imagen);
             $ruta_imagen = 'images/' . $nombre_imagen;
@@ -114,7 +115,7 @@ class IncidenciaController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validar los datos del formulario
+       
 
         $request->validate([
             'titulo' => 'required',
@@ -125,6 +126,7 @@ class IncidenciaController extends Controller
         ]);
 
         // Buscar la incidencia en la base de datos
+        /* Con findOrFail intentamos buscar un registro con el ID que le proporcionamos */
         $incidencia = Incidencia::findOrFail($id);
 
         // Actualizar los campos de la incidencia
@@ -132,7 +134,7 @@ class IncidenciaController extends Controller
         $incidencia->descripcion = $request->input('descripcion');
         $incidencia->prioridad = $request->input('prioridad');
 
-        // Guardar los cambios en la base de datos
+        
         $incidencia->save();
 
         // Buscar la categoría asociada con la incidencia
@@ -144,7 +146,7 @@ class IncidenciaController extends Controller
             $categoria->save();
         }
 
-        // Redirigir al usuario a la página de la incidencia con un mensaje de éxito
+        
         return redirect()->route('vista_ModificarIncidencia', ['id' => auth()->id()]);
 
     }
@@ -155,11 +157,11 @@ class IncidenciaController extends Controller
         if ($user != $id) {
             return redirect()->back();
         } else {
-            // Obtener todas las incidencias con sus categorías
+            // Obtenemos todas las incidencias con sus categorías
             $incidencias = Incidencia::with(['usuarioSubio', 'categoria'])->get();
             $usuarios = Usuario::has('incidencias')->get();
 
-            // Obtenemos el usuario actual
+             /* Obtenemos el usuario actual */
             $usuario = Usuario::find($id);
 
             // Mapea el tipo de técnico al tipo de categoría
@@ -184,7 +186,7 @@ class IncidenciaController extends Controller
                 })
                 ->get();
 
-            // Cuenta el número de incidencias pendientes
+            /* Contamos el número de incidencias pendientes */
             $incidenciasPendientes = $incidencias2->count();
         } else {
             // Si el usuario no es un técnico, no filtra las incidencias y el contador de incidencias pendientes es 0
@@ -202,12 +204,12 @@ class IncidenciaController extends Controller
 
     public function filtrado(Request $request)
     {
-        // Obtener los valores de los filtros desde el request
+        
         $usuario = $request->input('usuario');
         $estado = $request->input('estado');
         $prioridad = $request->input('prioridad');
 
-        // Construir la consulta con los filtros aplicados
+        /* Se va construyendo la consulta query() con los filtros que le vamos poniendo */
         $query = Incidencia::query();
 
         if ($usuario) {
@@ -222,9 +224,10 @@ class IncidenciaController extends Controller
             $query->where('prioridad', $prioridad);
         }
 
-        // Ejecutar la consulta y obtener las incidencias filtradas
+         /* Ejecutamos la consulta y obtenemos las incidencias filtradas */
         $incidencias = $query->get();
 
+        /* Si no seleccionamos ningun campo devolvemos a la misma vista con     ->back() */
         if ($incidencias->isEmpty() || (!$usuario && !$estado && !$prioridad)) {
             /* return redirect()->route('verIncidencias', ['incidencias' => $incidencias]); */
 
@@ -243,37 +246,38 @@ class IncidenciaController extends Controller
         // Busca la incidencia por su id
         $incidencia = Incidencia::find($id);
 
-        // Verifica si la incidencia existe
+        // Comprobamos si la incidencia existe
         if (!$incidencia) {
             return redirect()->back()->with('error', 'Incidencia no encontrada');
         }
 
-        // Elimina la incidencia
+        /* Siempre se va a poder eliminar una incidencia asi que lo anterior NO SE EJECUTARA
+        Cuando se elimine me devolvera a la misma pagina */
         $incidencia->delete();
 
-        // Redirige a la página anterior con un mensaje de éxito
-        return redirect()->back()->with('success', 'Incidencia eliminada con éxito');
+        
+        return redirect()->back();
     }
 
     /* Funcion para cambiar estado de una incidencia  */
 
     public function estadoIncidencia(Request $request, $id)
     {
-        // Validar los datos del formulario
+        
         $request->validate([
             'estado' => 'required|in:no resuelta,en proceso,resuelta',
         ]);
 
-        // Buscar la incidencia en la base de datos
+        // Buscar la incidencia en la base de datos por el id que le pasamos
         $incidencia = Incidencia::findOrFail($id);
 
         // Actualizar el estado de la incidencia
         $incidencia->estado = $request->input('estado');
 
-        // Guardar los cambios en la base de datos
+        
         $incidencia->save();
 
-        // Redirigir al usuario con un mensaje de éxito
+       
         return redirect()->back();
     }
 
@@ -308,7 +312,7 @@ class IncidenciaController extends Controller
                 // Retorna la vista con las incidencias filtradas
                 return view('misIncidencias', ['incidencias' => $incidencias]);
             } else {
-                // Si el usuario no es un técnico, redirige a otra página o muestra un error
+                // Si el usuario no es un técnico, redirige a otra página
                 return redirect()->back();
             }
         }

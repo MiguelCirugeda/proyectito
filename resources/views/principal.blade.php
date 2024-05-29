@@ -24,7 +24,7 @@
         <div class="row mx-auto">
         <p class="display-3">Bienvenido/a  {{ auth()->user()->nombre }} {{ auth()->user()->apellido }}</p>
         <p class="display-6">Aqui puedes visualizar todas las incidencias pendientes</p>
-        <h3>Si lees esto es que funciona</h3>
+        
         
         @foreach ($incidencias as $incidencia)
                 <div class="col-sm-6 col-md-4 py-4">

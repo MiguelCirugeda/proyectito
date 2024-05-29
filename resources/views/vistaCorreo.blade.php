@@ -20,6 +20,7 @@
 
 
         </x-plantilla>
+        <div class="row mx-auto">
         <div class="d-flex justify-content-center align-items-center" style="margin-top: 150px;">
             <form class="w-100" action="{{ route('verificarContra') }}" method="POST">
                 @csrf
@@ -47,7 +48,7 @@
 
             </form>
 
-
+        </div>
         </div>
         @error('contrasena1')
             <div class="text-center text-danger ">

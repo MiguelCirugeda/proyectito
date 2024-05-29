@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
+    /* Mostrara todos los usuarios en una lista, la usamos para la vista de hacer tecnico a un usuario */
     public function lista($id)
     {
         $user = auth()->id();
@@ -29,11 +30,11 @@ class UsuarioController extends Controller
         $usuario = Usuario::find($id);
 
         if ($usuario->tipo_tecnico) {
-            // Si el usuario ya tiene un tipo de técnico, sobrescribirlo
+             /* Si el usuario ya tiene un tipo de técnico, lo sobreescribimos */
             $usuario->tipo_tecnico = $request->tipo_tecnico;
 
         } else {
-            // Si el usuario no tiene un tipo de técnico, insertar el nuevo registro
+            /*  Si el usuario no tiene un tipo de técnico, insertamos un nuevo registro */
             $usuario->esTecnico = 1;
             $usuario->tipo_tecnico = $request->tipo_tecnico;
         }
@@ -47,6 +48,7 @@ class UsuarioController extends Controller
         return redirect()->route('listadoUsuariosTecnico', ['id' => auth()->id()]);
     }
 
+    /* Aqui solo devolvemos el nombre e ids de los usuarios registrados para que podamos enviarles un correo. Vista contactar */
     public function vistaContacto($id)
     {
         $user = auth()->id();
@@ -74,10 +76,10 @@ class UsuarioController extends Controller
 
     public function delete($id)
     {
-        // Busca la incidencia por su id
+        /* Buscamos al usuario por su id */
         $usuario = Usuario::find($id);
 
-        // Verifica si la incidencia existe
+        /* Verifica si la incidencia existe */
         if (!$usuario) {
             return redirect()->back();
         }
@@ -88,31 +90,37 @@ class UsuarioController extends Controller
             $codigo->save();
         }
 
-        // Elimina la incidencia
+        
         $usuario->delete();
 
-        // Redirige a la página anterior con un mensaje de éxito
-        return redirect()->back();
+        
+        /* return redirect()->back(); */
+        return back();
     }
 
     public function update(Request $request, $id)
     {
-        // Encuentra al usuario por su id
+         /* Encontramos al usuario por su id */
         $usuario = Usuario::find($id);
-
+    
         // Verificamos si se ha enviado una contraseña en la solicitud
         if ($request->filled('contrasena1')) {
             // Verifica si la contraseña actual ingresada coincide con la del usuario
             if (Hash::check($request->contrasena1, $usuario->password)) {
-                // Si la contraseña coincide, sobrescribe la contraseña con la nueva
-                $usuario->password = Hash::make($request->contrasena2);
+                // Verificamos si la nueva contraseña cumple con la expresión regular
+                if (preg_match('/^(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]+$/', $request->contrasena2)) {
+                    
+                    $usuario->password = Hash::make($request->contrasena2);
+                } else {
+                    // Si la contraseña es incorrecta, regresa con un error
+                    return back()->with('error', 'Error al cambiar la contraseña');
+                }
             } else {
-                // Si la contraseña no coincide, regresa con un error
                 
-                return back();
+                return back()->with('error', 'Error al cambiar la contraseña');
             }
         }
-
+    
         // Actualiza los campos del usuario con los datos del formulario
         if ($request->filled('nombre')) {
             $usuario->nombre = $request->nombre;
@@ -124,10 +132,11 @@ class UsuarioController extends Controller
             $usuario->categoria_usuario = $request->categoria;
         }
         $usuario->save();
-
-        // Redirige al usuario a la página de perfil con un mensaje de éxito
-        return redirect()->route('miPerfil', ['id' => $usuario->id])->with('success', 'Perfil actualizado con éxito');
+    
+        // Redirige al usuario a la página de perfil y ejecuta un toast
+        return redirect()->route('miPerfil', ['id' => $usuario->id])->with('exitoCambio', true);
     }
+    
 
     public function vistaDarmeBaja($id)
     {
@@ -159,7 +168,7 @@ class UsuarioController extends Controller
             $usuario->delete();
 
             Auth::logout(); // cerramos la sesión
-            return redirect()->route('index'); // redirigimos al login
+            return redirect()->route('index'); // redirigimos al index principal ya que nos hemos dado de baja
         } else {
             // Redirigir al modal con un mensaje de error
             return back()->withErrors(['contrasena1' => 'La contraseña proporcionada es incorrecta.']);

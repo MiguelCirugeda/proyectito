@@ -12,7 +12,7 @@ class CorreoController extends Controller
 {
     public function insertarCorreo(Request $request)
     {
-        // Validar los datos del formulario
+        
         $request->validate([
             'usuario' => 'required',
             'asunto' => 'required',
@@ -20,7 +20,7 @@ class CorreoController extends Controller
             'estado' => 'required|in:leido,no leido,favoritos',
         ]);
 
-        // Crear una nueva instancia de Correo
+        // Creamos el nuevo objeto de Correo
         $correo = new Correo;
 
         // Asignar los datos del formulario a las propiedades del correo
@@ -35,7 +35,7 @@ class CorreoController extends Controller
         
         return redirect()->back()->with('correoEnviado', true);
        
-        return back();
+        /* return back(); */
     }
 
     public function vistaBandeja($id)
@@ -44,20 +44,20 @@ class CorreoController extends Controller
         if ($user != $id) {
             return redirect()->back();
         }else{
-        // Obtén el usuario autenticado
+        // Obtenemos el usuario autenticado
         $usuario = Usuario::find($id);
 
-        // Obtén los correos recibidos por el usuario
+        // Obtenemos los correos recibidos por el usuario
         $correosRecibidos = $usuario->correosRecibidos;
 
-        /* Usamos un bucle para recorrer todos los correos e ir descifrando sus los campos seleccionados uno a uno
-        Con que haya un solo campo sin cifrar el metodo dara un error debido a que necesita que todo */
+        /* Usamos un bucle para recorrer todos los correos e ir descifrando los campos seleccionados uno a uno
+        Con que haya un solo campo sin cifrar el metodo dara un error debido a que necesita que todo este cifrado*/
         foreach ($correosRecibidos as $correo) {
             $correo->asunto = Crypt::decrypt($correo->asunto);
             $correo->contenido = Crypt::decrypt($correo->contenido);
             
         }
-        // Muestra la vista 'vistaBandejaEntrada.blade.php' con los datos del usuario y sus correos recibidos
+        
         return view('vistaBandejaEntrada', ['usuario' => $usuario, 'correosRecibidos' => $correosRecibidos]);
     }
 }
