@@ -33,26 +33,27 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
- 
+
             <x-plantillaCorreo>
 
             </x-plantillaCorreo>
 
             <section>
-                <div class="container " style="max-width: 90%;">
+                <div class="container " style="max-width: 70%;">
                     <div class="row">
                         <div class="col">
-                            <!-- Aquí puedes añadir tu formulario o cualquier otro contenido -->
-                            <p class="display-3 col-12 col-sm-6 col-lg-9" style="margin-left: 40px;">Aqui van mis mensajes recibidos</p>
-            
+
+                            <p class="display-3 col-12 col-sm-10 col-lg-9" style="margin-left: 40px;">Aqui van mis
+                                mensajes recibidos</p>
+
                             <div class="row ">
                                 @if ($correosRecibidos)
                                     @foreach ($correosRecibidos as $correo)
-                                        <div class="col-12 col-sm-6 col-md-6 py-4 ml-sm-3" style="margin-left: 40px;">
+                                        <div class="col-12 col-sm-10 col-md-6 py-4 ml-sm-3" style="margin-left: 20px;">
                                             <div class="card shadow bg-white rounded">
                                                 <div class="card-header">
-                                                    Enviado por 
-                                                    @if($correo->usuarioRemitente)
+                                                    Enviado por
+                                                    @if ($correo->usuarioRemitente)
                                                         {{ $correo->usuarioRemitente->nombre }}
                                                     @else
                                                         (No hay nombre asociado)
@@ -62,20 +63,28 @@
                                                     <blockquote class="blockquote mb-0">
                                                         <p>Asunto: {{ $correo->asunto }}</p>
                                                         <p>Contenido: {{ $correo->contenido }}</p>
-                                                        <footer class="blockquote-footer">Enviado por 
-                                                            @if($correo->usuarioRemitente)
+                                                        <footer class="blockquote-footer">Enviado por
+                                                            @if ($correo->usuarioRemitente)
                                                                 {{ $correo->usuarioRemitente->nombre }}
                                                             @else
                                                                 (No hay nombre asociado)
-                                                            @endif</footer>
-                                                            <form action="{{ route('insertarCorreo', ['id' => $correo->id]) }}" method="POST">
+                                                            @endif
+                                                        </footer>
+                                                        @if ($correo->usuarioRemitente)
+                                                            <form
+                                                                action="{{ route('insertarCorreo', ['id' => $correo->id]) }}"
+                                                                method="POST">
                                                                 @csrf
-                                                        <button type="button" class="btn btn-sm btn-outline-info col-auto mr-3 "
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#contestarCorreo{{ $correo->id }}">
-                                                            Contestar correo
-                                                        </button>
+                                                                <button type="button"
+                                                                    class="btn btn-sm btn-outline-info col-auto mr-3 "
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#contestarCorreo{{ $correo->id }}">
+                                                                    Contestar correo
+                                                                </button>
                                                             </form>
+                                                        @else
+                                                        @endif
+
                                                     </blockquote>
                                                 </div>
                                             </div>
@@ -90,7 +99,7 @@
                     </div>
                 </div>
             </section>
- 
+
         </div>
     </div>
 
@@ -98,4 +107,5 @@
 
 </body>
 <script src="{{ asset('js/main.js') }}"></script>
+
 </html>

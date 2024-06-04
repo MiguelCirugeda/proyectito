@@ -33,46 +33,22 @@
 
     <div class="container-fluid">
         <div class="row flex-nowrap">
-            {{-- <div class="bg-red col-auto col-md-2.5 min-vh-100">
-            <div class="p-2">
-                <a class="d-flex text-decoration-none mt-1 align-items-center {{ $usuario && $usuario->esTecnico == 1 ? 'text-white' : '' }}" href="">
-                    <span class="fs-4-none d-sm-inline">Correo de {{$usuario->nombre}}</span>
-                </a>
-                <ul class="nav nav-pills flex-column mt-4">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{route('vistaBandeja', ['id' => $usuario->id])}}" class="nav-link">
-                            <i class="fs-5 fa fa-guage bg-white"></i><span class="fs-4 d-sm-inline">Bandeja de Entrada</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{route('vistaEnviarCorreo', ['id' => $usuario->id])}}" class="nav-link">
-                            <i class="fs-5 fa fa-guage"></i><span class="fs-4 d-sm-inline">Enviar Correo</span>
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="{{ route('principal') }}" class="nav-link">
-                            <i class="fs-5 fa fa-guage"></i><span class="fs-4 d-sm-inline">Volver a principal</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div> --}}
+
             <x-plantillaCorreo>
 
             </x-plantillaCorreo>
             <section>
-                <div class="container"style="max-width: 90%;">
+                <div class="container " style="max-width: 70%;">
                     <div class="row">
                         <div class="col">
-                            <!-- Formulario-->
-                            <p class="display-3 col-12 col-sm-6 col-lg-9" style="margin-left: 40px;">Aqui se pueden
-                                enviar los correos</p>
+
+                            <p class="display-3 col-12 col-sm-10 col-lg-9" style="margin-left: 20px;">Envio de correos</p>
                             <div class="row">
-                                <form class="col-12 col-sm-6 col-md-6 col-lg-9 py-4"
+                                <form class="col-12 col-sm-10 col-md-8 col-lg-6 py-4" style="margin-left: 20px;"
                                     action="{{ route('insertarCorreo') }}" method="POST">
                                     @csrf
                                     <div class="row justify-content-center align-items-center">
-                                        <div class="input-group mb-3 w-50">
+                                        <div class="input-group mb-3 col-12 col-sm-8 col-lg-6">
                                             <svg class="input-group-text "
                                                 style="background-color:rgba(8, 69, 224, 0.833)"
                                                 xmlns="http://www.w3.org/2000/svg" width="50" height="50"
@@ -90,7 +66,7 @@
                                         </div>
                                     </div>
                                     <div class="row justify-content-center align-items-center">
-                                        <div class="input-group mb-3 w-50">
+                                        <div class="input-group mb-3 col-12 col-sm-8 col-lg-6">
                                             <svg class="input-group-text "
                                                 style="background-color:rgba(8, 69, 224, 0.833)"
                                                 xmlns="http://www.w3.org/2000/svg" width="50" height="50"
@@ -107,7 +83,7 @@
                                     </div>
 
                                     <div class="row justify-content-center align-items-center">
-                                        <div class="input-group mb-3 w-50">
+                                        <div class="input-group mb-3 col-12 col-sm-8 col-lg-6">
                                             <svg class="input-group-text"
                                                 style="background-color:rgba(8, 69, 224, 0.833)"
                                                 xmlns="http://www.w3.org/2000/svg" width="50" height="50"
@@ -124,7 +100,7 @@
 
                                     <div class="row justify-content-center align-items-center">
 
-                                        <div class="input mb-3 w-50">
+                                        <div class="input-group col-12 col-sm-8 col-lg-6">
                                             <input class="btn btn-success" type="submit" value="Enviar"><br><br>
                                         </div>
                                     </div>
@@ -137,7 +113,7 @@
             </section>
         </div>
     </div>
-    {{-- Alerta tipo Toast que mostramos cuando enviamos correctamente un correo--}}
+    {{-- Alerta tipo Toast que mostramos cuando enviamos correctamente un correo --}}
     <div class="toast" id="alertConfirmEnvio"
         style="position: fixed; top: 60px; left: 50%; transform: translate(-50%, 0); background-color: #3fe304; opacity: 0.9;"
         data-delay="2000" data-autohide="true">
@@ -150,8 +126,8 @@
     </div>
     <script>
         /* Con json pasamos datos de php al archivo javascript
-        Creamos variable global de Javascript y la llamamos 'correoEnviado, despues le asignamos el valor de la sesion
-        Como existe correoEnviado porque al registrar un correo se devuelve con esa sesion' */
+            Creamos variable global de Javascript y la llamamos 'correoEnviado, despues le asignamos el valor de la sesion
+            Como existe correoEnviado porque al registrar un correo se devuelve con esa sesion' */
         window.correoEnviado = @json(session('correoEnviado', false));
 
         /* si la sesión correoEnviado existe y su valor es true, entonces se ejecutara window.correoEnviado que en el archivo js
